@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import Axios from 'axios'
+
+import queryClient from './queryClient.ts'
+
 import {
-  QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-
-const queryClient = new QueryClient();
 
 Axios.defaults.baseURL = '/api/';
 
