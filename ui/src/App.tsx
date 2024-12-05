@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import { LatLngExpression } from 'leaflet'
 import Axios from 'axios'
 
@@ -25,16 +25,16 @@ function App() {
 
   if (error) return 'An error has occurred: ' + error.message;
 
-  const position: LatLngExpression = [data.data.latitude, data.data.longitude]
+  const {latitude, longitude, timestamp } = data.data;
+  
+  const position: LatLngExpression = [latitude, longitude]
+
 
   console.log(data.data);
 
   function handleClick() {
-    // invalidate to force refetch
     queryClient.invalidateQueries({ queryKey: ['iss'] });
   }
-
-  // const position: LatLngExpression = [51.505, -0.09]
 
   return (
     <div>
@@ -46,8 +46,9 @@ function App() {
           Refresh
         </button>
         <div className="time-container">
-          <h3>Last Updated Time:</h3>
-          <p>{new Date(data.data.timestamp * 1000).toISOString()}</p>
+          <div><b>Time:</b> {new Date(timestamp * 1000).toISOString()}</div>
+          <div><b>Latitude:</b> {latitude}</div>
+          <div><b>Longitude:</b> {longitude}</div>
         </div>
       </div>
 
@@ -57,9 +58,6 @@ function App() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
         </Marker>
       </MapContainer>
     </div>
