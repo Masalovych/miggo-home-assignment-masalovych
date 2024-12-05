@@ -4,7 +4,7 @@ import Axios from 'axios'
 
 import queryClient from './queryClient.ts'
 
-// import 'leaflet/dist/leaflet.css';
+import './App.css'
 
 import {
   useQuery,
@@ -32,19 +32,23 @@ function App() {
   function handleClick() {
     // invalidate to force refetch
     queryClient.invalidateQueries({ queryKey: ['iss'] });
-   }
+  }
 
   // const position: LatLngExpression = [51.505, -0.09]
 
   return (
     <div>
-      <div>
+      <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 1000 }}>
         <button
-          style={{ position: 'fixed', top: 10, right: 10, zIndex: 1000 }}
           title="Refresh"
           onClick={handleClick}
         >
-          Refresh</button>
+          Refresh
+        </button>
+        <div className="time-container">
+          <h3>Last Updated Time:</h3>
+          <p>{new Date(data.data.timestamp * 1000).toISOString()}</p>
+        </div>
       </div>
 
       <MapContainer center={position} zoom={5} scrollWheelZoom={false} style={{ height: 536 }}>

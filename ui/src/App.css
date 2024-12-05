@@ -1,0 +1,8 @@
+.time-container {
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  width: 200px;
+  height: 100px;
+  background-color: #fff;
+}
